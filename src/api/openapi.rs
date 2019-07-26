@@ -61,6 +61,17 @@ impl Api<Object<PodSpec, PodStatus>> {
 
 impl Log for Api<Object<PodSpec, PodStatus>> {}
 
+use k8s_openapi::api::core::v1::{ReplicaSetSpec, ReplicaSetStatus};
+impl Api<Object<ReplicaSetSpec, ReplicaSetStatus>> {
+    pub fn v1ReplicaSet(client: APIClient) -> Self {
+        Api {
+            api: RawApi::v1ReplicaSet(),
+            client,
+            phantom: PhantomData,
+        }
+    }
+}
+
 use k8s_openapi::api::core::v1::{ServiceSpec, ServiceStatus};
 impl Api<Object<ServiceSpec, ServiceStatus>> {
     pub fn v1Service(client: APIClient) -> Self {
